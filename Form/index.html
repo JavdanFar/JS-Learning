@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Form</title>
+
+</head>
+
+<body>
+    <main>
+        <form action="" name="signupForm">
+            <!-- <div class="center"> -->
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" name="fname">
+
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" name="lname">
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email">
+            <!-- </div> -->
+
+            <div class="center">
+                <p>Gender:</p>
+                <input type="radio" id="male" name="gender" value="male">
+                <label for="html">Male</label>
+
+                <input type="radio" id="female" name="gender" value="female">
+                <label for="css">Female</label>
+            </div>
+
+            <!-- <div class="center"> -->
+                <label for="county">Choose your County:</label>
+                
+                <select id="county" name="county">
+                </select>
+                
+                <label for="city">Choose your City:</label>
+                <select id="city" name="city">
+                    <option value="" disabled selected>-- Choose City --</option>
+                </select>
+            <!-- </div> -->
+
+            <div class="center">
+                <input type="submit" id="submitBtn" value="Submit">
+            </div>
+        </form>
+
+    </main>
+
+    <script src="./script.js"></script>
+</body>
+
+</html>

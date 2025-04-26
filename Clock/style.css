@@ -1,0 +1,13 @@
+body {
+    background-color: black;
+    height: 700px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.clock {
+    color: rgb(227, 106, 191);
+    font-size: 50px;
+    font-family: monospace;
+}
