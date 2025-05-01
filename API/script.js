@@ -10,16 +10,17 @@ function getCryptoPrice() {
 
       if (cryptoPrice !== localStorage.getItem("lastPrise") || 0) {
         if (cryptoPrice > localStorage.getItem("lastPrise")) {
+          price.innerHTML = `${cryptoPrice} &#8679;`;
           price.style.color = "green";
         } else if (cryptoPrice < localStorage.getItem("lastPrise")) {
+          price.innerHTML = `${cryptoPrice} &#8681;`;
           price.style.color = "red";
         }
         localStorage.setItem("lastPrise", cryptoPrice);
-        price.innerHTML = cryptoPrice;
       }
     }
   });
   xhr.send();
 }
 
-setInterval(getCryptoPrice, 1000);
+setInterval(getCryptoPrice, 500);
