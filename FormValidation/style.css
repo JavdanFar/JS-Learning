@@ -24,16 +24,9 @@ form {
     align-items: center;
 }
 
-input[type="text"] {
+input[type="text"], input[type="email"], input[type="number"] {
     background-color: #fffbe6;
     padding: 10px 20px;
-    margin: 6px;
-    display: block;
-}
-
-input[type="email"] {
-    background-color: #fffbe6;
-    padding: 10px 30px;
     margin: 6px;
     display: block;
 }
