@@ -1,0 +1,44 @@
+:root {
+  --blue: #2b76e9;
+  --grey: #282c3a;
+  --lightGrey: #444652;
+  --darkGrey: #1c1e29;
+  --white: #fafafa;
+  --black: #010101;
+  --black-grey1: #121212;
+  --black-grey2: #16171b;
+  --black-grey3: #232531;
+  --black-grey4: #262626;
+  --black-grey5: #363636;
+  --middle-grey: #656660;
+  --dt-surface-container-lowest: #fff;
+  --dt-surface-container-low: #f8fafd;
+  --dt-surface-container: #f0f4f9;
+  --dt-surface-container-high: #e9eef6;
+  --dt-surface-container-highest: #dde3ea;
+  --border-github: #d0d7de;
+  --very-low-blue: #E5E4FF;
+  --very-low-blue2: #e5f0f9;
+  --very-low-blue3: #f4f7ff;
+  --yellow: #FFD500;
+  --green: #6fcc61;
+  --green2: #42b78b;
+  --green3: #009B77;
+  --dark-green: #18312b;
+  --navy: #060C21;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  border: 0;
+  text-decoration: none;
+  list-style: none;
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
