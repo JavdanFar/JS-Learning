@@ -3,10 +3,72 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../Assets/icons/css/all.css" />
     <link rel="stylesheet" href="./style.css" />
     <title>Link Shorter</title>
   </head>
-  <body class="dark" data-="dark">
+  <body data-theme="light">
+    <header>
+      <h1>Gladioum Link Shorter</h1>
+
+      <div class="header-icons">
+        <button>
+          <i class="fa-duotone fa-solid fa-lightbulb"></i>
+        </button>
+
+        <button id="themeBtn">
+          <i id="themeIcon" class="fa fa-solid fa-moon"></i>
+        </button>
+      </div>
+    </header>
+
+    <section>
+      <div class="card-container">
+        <h2>Paste Your URL Here</h2>
+
+        <div class="textarea-container">
+          <textarea name="urlInput" id="urlInput" placeholder=" " maxlength="1000" required></textarea>
+          <label for="urlInput" id="label">Long URL <span class="red-star">*</span></label>
+        </div>
+
+        <p id="helperText">Please Enter a Valid URL</p>
+
+        <button id="generateBTN" class="disable" disabled>Generate Short Link</button>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-logo">
+        <img src="../Assets/logo/batman-black.png" height="10" alt="batman" />
+        <p>Wane Corp</p>
+      </div>
+
+      <div class="footer-links">
+        <a href="#">API (soon)</a>
+        <a href="https://github.com/JavdanFar">Github</a>
+        <p>v1.0.0</p>
+      </div>
+    </footer>
+
+    <div class="modal-container">
+      <div class="modal">
+        <div class="modal-header">
+          <h3>Share Your Idea</h3>
+          <button class="closeBTN">X</button>
+        </div>
+
+        <p>We'd love to hear your ideas</p>
+
+        <div class="textarea-container">
+          <textarea name="ideaInput" id="ideaInput" placeholder=" " maxlength="2048" required></textarea>
+          <label for="ideaInput" id="label">Your Idea <span class="red-star">*</span></label>
+        </div>
+
+        <p id="ideaHelperText" style="display: none"></p>
+
+        <button class="modalSubmitBTN disable" disabled>Submit</button>
+      </div>
+    </div>
 
     <script src="./script.js"></script>
   </body>
