@@ -108,6 +108,10 @@
   list-style: none;
 }
 
+a {
+  text-decoration: none;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   :root {
     scroll-behavior: smooth;
@@ -223,8 +227,7 @@ textarea:not(:placeholder-shown)+label {
   align-self: start;
 }
 
-.card-container button,
-.modalSubmitBTN {
+.card-container>button {
   cursor: pointer;
   margin: 6px 0;
   width: 100%;
@@ -239,11 +242,55 @@ textarea:not(:placeholder-shown)+label {
   }
 }
 
-.card-container button.disable,
-.modal button.modalSubmitBTN.disable {
+.card-container button.disable {
   cursor: not-allowed;
   background-color: var(--color-mist);
   color: var(--color-text);
+}
+
+.display-none {
+  display: none;
+}
+
+.card-container a {
+  color: var(--color-primary);
+  margin: 20px 0 30px 0;
+}
+
+.copy-new-BTNs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.copy-BTN,
+.new-BTN {
+  padding: 16px 100px;
+  margin: 8px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.copy-BTN {
+  color: var(--color-white);
+  background-color: var(--color-primary);
+
+  &:hover {
+    background-color: var(--color-primary-hover);
+  }
+}
+
+.new-BTN {
+  color: var(--color-primary);
+  background-color: transparent;
+  border: 2px solid var(--color-primary);
+
+  &:hover {
+    color: var(--color-white);
+    background-color: var(--color-primary);
+  }
 }
 
 footer {
@@ -278,6 +325,11 @@ footer {
 .footer-links a {
   text-decoration: none;
   color: var(--color-text);
+
+  &:hover {
+    color: var(--color-primary-hover);
+    transition: all 0.4s;
+  }
 }
 
 
@@ -299,48 +351,6 @@ footer {
   a {
     font-size: 12px;
   }
-}
-
-.modal-container {
-  position: fixed;
-  width: 100%;
-  height: 100vh;
-  background-color: var(--color-overlay);
-  z-index: 999999;
-  top: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  display: none;
-}
-
-.modal {
-  width: 100%;
-  max-width: 500px;
-  background-color: var(--color-foreground);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-radius: 8px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
-  padding: 10px 20px;
-
-  & h3 {
-    align-self: self-start;
-    margin: 10px 0;
-  }
-
-  & p {
-    padding: 10px 0;
-    align-self: flex-start;
-  }
-}
-
-.modal-header {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-
 }
 
 .closeBTN {
