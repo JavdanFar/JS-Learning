@@ -1,21 +1,33 @@
+import { GBI } from "./lib.js"
+
+window.addEventListener("DOMContentLoaded", () => {
+  const ideaInput = GBI("ideaInput");
+  ideaInput.value = "";
+  const urlInput = GBI("urlInput");
+  urlInput.value = "";
+});
+
 // =======***======= DarkMode Section =======***=======
 
 document.body.dataset.theme = localStorage.getItem("theme") || "light";
 
-let themeBTN = document.getElementById("themeBTN");
+const themeBTN = GBI("themeBTN");
+const logo = GBI("logo")
 
 themeBTN.addEventListener("click", () => {
   const body = document.body.dataset;
-  const themeIcon = document.getElementById("themeIcon")
+  const themeIcon = GBI("themeIcon")
   if (body.theme === "dark") {
     localStorage.setItem("theme", "light");
     body.theme = localStorage.getItem("theme");
     themeIcon.classList.replace("fa-sun", "fa-moon")
+    logo.src = "../Assets/logo/batman-black.png"
   }
   else {
     localStorage.setItem("theme", "dark");
     body.theme = localStorage.getItem("theme");
     themeIcon.classList.replace("fa-moon", "fa-sun")
+    logo.src = "../Assets/logo/batman-white.png"
   }
 });
 
@@ -58,14 +70,20 @@ const validateURL = (url) => {
 }
 
 
-// =======***======= Change URL Input Style Section =======***=======
+// =======***======= Change Input Style Section =======***=======
 
-let inputController = (userInput, inputLabel, helperText, SubmitBTN, maxLen, validationCallback) => {
+let inputController = (userInputId, inputLabelId, inputLabelValue, helperTextId, submitBTNId, maxLen, validationCallback) => {
+
+  let userInput = GBI(userInputId)
+  let inputLabel = GBI(inputLabelId)
+  let helperText = GBI(helperTextId)
+  const submitBTN = GBI(submitBTNId)
+
   userInput.addEventListener("input", (e) => {
     let inputLen = e.target.value.length
 
-    inputLabel.innerHTML = inputLen ? `Long URL (${inputLen}/${maxLen}) <span class="red-star">*</span>` :
-      `Long URL <span class="red-star">*</span>`
+    inputLabel.innerHTML = inputLen ? `${inputLabelValue} (${inputLen}/${maxLen}) <span class="red-star">*</span>` :
+      `${inputLabelValue} <span class="red-star">*</span>`
 
     let [isValid, Message] = validationCallback(e.target.value)
 
@@ -76,35 +94,51 @@ let inputController = (userInput, inputLabel, helperText, SubmitBTN, maxLen, val
         userInput.style.borderColor = "var(--color-primary)"
       }
       helperText.style.color = "var(--color-success)"
-      SubmitBTN.classList.remove("disable")
-      SubmitBTN.disabled = false
+      submitBTN.classList.remove("disable")
+      submitBTN.disabled = false
     } else {
       userInput.style.borderColor = "var(--color-alert)"
       helperText.style.color = "var(--color-alert)"
-      SubmitBTN.classList.add("disable")
-      SubmitBTN.disabled = true
+      submitBTN.classList.add("disable")
+      submitBTN.disabled = true
     }
 
     helperText.innerText = Message
   })
 }
 
-let urlInput = document.getElementById("urlInput")
-let label = document.getElementById("label")
-let helperText = document.getElementById("helperText")
-const generateBTN = document.getElementById("generateBTN")
 
-inputController(urlInput, label, helperText, generateBTN, 1000, validateURL)
+let inputDefault = function (userInputId, inputLabelId, inputLabelValue, helperTextId, submitBTNId) {
+  let userInput = GBI(userInputId)
+  let inputLabel = GBI(inputLabelId)
+  let helperText = GBI(helperTextId)
+  const submitBTN = GBI(submitBTNId)
+
+  inputLabel.innerHTML = `${inputLabelValue} <span class="red-star">*</span>`
+  userInput.value = ""
+  userInput.style.borderColor = "var(--color-mist-extra)"
+  helperText.innerText = ""
+  submitBTN.classList.add("disable")
+  submitBTN.disabled = true
+}
+
+
+// =======***======= Change URL Input Style Section =======***=======
+
+inputController("urlInput", "urlInputLabel", "Long URL", "URLhelperText", "generateBTN", 1000, validateURL)
 
 
 // =======***======= Generate Section =======***=======
 
-const shortLink = document.getElementById("shortLink")
-const inputCard = document.getElementById("inputCard")
-const resultCard = document.getElementById("resultCard")
+const shortLink = GBI("shortLink")
+const inputCard = GBI("inputCard")
+const resultCard = GBI("resultCard")
 
 generateBTN.addEventListener("click", async function () {
-  let urlValue = document.getElementById("urlInput").value
+  let urlValue = GBI("urlInput").value
+
+  showMessage("در حال تولید لینک کوتاه...", "loading");
+
   const response = await fetch("https://phly.ir/api/links/create", {
     method: "POST",
     headers: {
@@ -123,12 +157,14 @@ generateBTN.addEventListener("click", async function () {
 
   inputCard.style.display = "none"
   resultCard.style.display = "flex"
+
+  showMessage("لینک با موفقیت تولید شد!", "success");
 })
 
 
 // =======***======= Copy BTN Section =======***=======
 
-const copyBTN = document.getElementById("copyBTN")
+const copyBTN = GBI("copyBTN")
 
 copyBTN.addEventListener("click", () => {
   navigator.clipboard.writeText(shortLink.href)
@@ -137,13 +173,13 @@ copyBTN.addEventListener("click", () => {
 
 // =======***======= New BTN Section =======***=======
 
-const newBTN = document.getElementById("newBTN")
-const urlInputForm = document.getElementById("urlInputForm")
+const newBTN = GBI("newBTN")
 
 newBTN.addEventListener("click", () => {
-  urlInputForm.reset();
   inputCard.style.display = "flex"
   resultCard.style.display = "none"
+
+  inputDefault("urlInput", "urlInputLabel", "Long URL", "URLhelperText", "generateBTN");
 })
 
 
@@ -164,50 +200,69 @@ const validateIdea = (idea) => {
 
 // =======***======= Change Idea Input Style Section =======***=======
 
-let ideaInput = document.getElementById("ideaInput")
-let ideaInputLabel = document.getElementById("ideaInputLabel")
-let ideaHelperText = document.getElementById("ideaHelperText")
-const ideaSubmitBTN = document.getElementById("ideaSubmitBTN")
-
-inputController(ideaInput, ideaInputLabel, ideaHelperText, ideaSubmitBTN, 2048, validateIdea)
-
+inputController("ideaInput", "ideaInputLabel", "Your Idea", "ideaHelperText", "ideaSubmitBTN", 2048, validateIdea)
 
 // =======***======= Open and Close Modal Section =======***=======
 
-const closeBTN = document.getElementById("colseBTN")
-const modalContainer = document.getElementById("modalContainer")
-const ideaBTN = document.getElementById("ideaBTN")
+const modalHandler = function (modalBTNId, modalContainerId, closeBTNId) {
+  const modalBTN = GBI(modalBTNId)
+  const modalContainer = GBI(modalContainerId)
+  const closeBTN = GBI(closeBTNId)
 
-const versionBTN = document.getElementById("versionBTN")
-const versionModalColseBTN = document.getElementById("versionModalColseBTN")
-const versionModalContainer = document.getElementById("versionModalContainer")
+  modalBTN.addEventListener("click", () => {
+    modalContainer.style.display = "flex"
+  })
 
-
-ideaBTN.addEventListener("click", () => {
-  modalContainer.style.display = "flex"
-})
-
-closeBTN.addEventListener("click", () => {
-  modalContainer.style.display = "none"
-})
-
-modalContainer.addEventListener("click", (event) => {
-  if (event.target === modalContainer) {
+  closeBTN.addEventListener("click", () => {
     modalContainer.style.display = "none"
+  })
+
+  modalContainer.addEventListener("click", (event) => {
+    if (event.target === modalContainer) {
+      modalContainer.style.display = "none"
+    }
+  })
+}
+
+modalHandler("ideaBTN", "ideaModalContainer", "ideaCloseBTN")
+
+modalHandler("versionBTN", "versionModalContainer", "versionModalColseBTN")
+
+// =======***======= Submit Idea Section =======***=======
+
+ideaSubmitBTN.addEventListener("click", async function () {
+  const ideaInput = GBI("ideaInput").value
+  
+  try {
+    const response = await fetch("https://phly.ir/api/ideas/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        "idea": ideaInput
+      })
+    })
+
+    alert("Your Idea Sent Successfully");
+    
+  } catch (error) {
+    alert("There is a problem in send your idea!");
   }
+  
+  inputDefault("ideaInput", "ideaInputLabel", "Your Idea", "ideaHelperText", "ideaSubmitBTN");
 })
 
 
-versionBTN.addEventListener("click", () => {
-  versionModalContainer.style.display = "flex"
-})
+// =======***======= Toast Section Section =======***=======
 
-versionModalColseBTN.addEventListener("click", () => {
-  versionModalContainer.style.display = "none"
-})
+function showMessage(text, type = "loading", duration = 2000) {
+  const box = GBI("toastContainer");
+  box.textContent = text;
+  box.className = `message-box ${type}`;
+  box.classList.remove("hidden");
 
-versionModalContainer.addEventListener("click", (event) => {
-  if (event.target === versionModalContainer) {
-    versionModalContainer.style.display = "none"
-  }
-})
+  setTimeout(() => {
+    box.classList.add("hidden");
+  }, duration);
+}
