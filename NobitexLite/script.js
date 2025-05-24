@@ -10,6 +10,4 @@ function lnb() {
     document.querySelector(".notifications").remove()
     document.querySelector(".nobitex-panel__main.sidebar-is-minimize").style.margin = 0
     document.querySelector(".mb-40").style.margin = 0
-    document.querySelector(".exchange-header.w-100.d-flex.p-8-md.flex-column.flex-lg-row").style.padding = 0
-    document.querySelector(".exchange__header.mb-8.mx-8-xl.mt-8-xl").style.margin = 0
 }
