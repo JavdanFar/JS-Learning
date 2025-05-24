@@ -245,24 +245,28 @@ ideaSubmitBTN.addEventListener("click", async function () {
     })
 
     alert("Your Idea Sent Successfully");
-    
+
   } catch (error) {
     alert("There is a problem in send your idea!");
   }
-  
+
   inputDefault("ideaInput", "ideaInputLabel", "Your Idea", "ideaHelperText", "ideaSubmitBTN");
 })
 
 
-// =======***======= Toast Section Section =======***=======
+// =======***======= Toast Message Section =======***=======
 
-function showMessage(text, type = "loading", duration = 2000) {
-  const box = GBI("toastContainer");
-  box.textContent = text;
-  box.className = `message-box ${type}`;
-  box.classList.remove("hidden");
+function toastHandler(status = "loading",text,dura) {
+  let toastMessage = GBI("toastMessage")
+  toastMessage.style.display = "flex"
+
+  if (status === "loading") {
+  } else if (status === "ok") {
+  } else {
+  }
 
   setTimeout(() => {
-    box.classList.add("hidden");
-  }, duration);
+    toastMessage.style.display = "none"
+  })
+
 }
