@@ -137,40 +137,67 @@ const resultCard = GBI("resultCard")
 generateBTN.addEventListener("click", async function () {
   let urlValue = GBI("urlInput").value
 
-  showMessage("در حال تولید لینک کوتاه...", "loading");
+  toastHandler("Short URL is generating...", 'loading', 99999999)
+  try {
 
-  const response = await fetch("https://phly.ir/api/links/create", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      "url": urlValue
+    const response = await fetch("https://phly.ir/api/links/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        "url": urlValue
+      })
     })
-  })
 
-  let result = await response.json()
-  let output = `https://phly.ir/${result.data.code}`
+    let result = await response.json()
+    let output = `https://phly.ir/${result.data.code}`
+    shortLink.href = output
+    shortLink.innerText = output
 
-  shortLink.href = output
-  shortLink.innerText = output
+    inputCard.style.display = "none"
+    resultCard.style.display = "flex"
 
-  inputCard.style.display = "none"
-  resultCard.style.display = "flex"
-
-  showMessage("لینک با موفقیت تولید شد!", "success");
+    toastMessage.style.display = "none"
+    toastHandler("Short URL generated successfully", "ok")
+  } catch (error) {
+    toastHandler("Failed to generate short URL!", "error")
+  }
 })
 
 
 // =======***======= Copy BTN Section =======***=======
 
+const handleCopy = async (shortUrl) => {
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(shortUrl);
+      toastHandler("URL copied to clipboard!", "ok")
+    } else {
+      const textArea = document.createElement('textarea');
+      textArea.value = shortUrl;
+      textArea.style.position = 'fixed';
+      textArea.style.left = '0';
+      textArea.style.top = '0';
+      textArea.style.opacity = '1';
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      document.execCommand('copy');
+      textArea.remove()
+      toastHandler("URL copied to clipboard!", "ok")
+    }
+  } catch (error) {
+    console.error('Failed to copy: ', error);
+    toastHandler("Failed to copy URL", "error")
+  }
+}
+
 const copyBTN = GBI("copyBTN")
 
 copyBTN.addEventListener("click", () => {
-  navigator.clipboard.writeText(shortLink.href)
+  handleCopy(shortLink.href)
 })
-
-
 // =======***======= New BTN Section =======***=======
 
 const newBTN = GBI("newBTN")
@@ -232,7 +259,8 @@ modalHandler("versionBTN", "versionModalContainer", "versionModalColseBTN")
 
 ideaSubmitBTN.addEventListener("click", async function () {
   const ideaInput = GBI("ideaInput").value
-  
+
+  toastHandler("Submitting your idea...", "loading", 999999999)
   try {
     const response = await fetch("https://phly.ir/api/ideas/create", {
       method: "POST",
@@ -243,11 +271,13 @@ ideaSubmitBTN.addEventListener("click", async function () {
         "idea": ideaInput
       })
     })
+    toastMessage.style.display = "none"
 
-    alert("Your Idea Sent Successfully");
+    ideaModalContainer.style.display = "none"
+    toastHandler("Your Idea Sent Successfully", "ok")
 
   } catch (error) {
-    alert("There is a problem in send your idea!");
+    toastHandler("There is a problem in send your idea!", "error")
   }
 
   inputDefault("ideaInput", "ideaInputLabel", "Your Idea", "ideaHelperText", "ideaSubmitBTN");
@@ -256,17 +286,28 @@ ideaSubmitBTN.addEventListener("click", async function () {
 
 // =======***======= Toast Message Section =======***=======
 
-function toastHandler(status = "loading",text,dura) {
+function toastHandler(text, status = "loading", duration = 3000) {
   let toastMessage = GBI("toastMessage")
+  let toastMessageIcon = GBI("toastMessageIcon")
+
   toastMessage.style.display = "flex"
+  toastText.innerText = text
 
   if (status === "loading") {
+    toastMessageIcon.className = "fas fa-circle-notch fa-spin"
+
   } else if (status === "ok") {
+    toastMessageIcon.className = "fa-solid fa-circle-check"
+
   } else {
+    toastMessageIcon.className = "fa-solid fa-circle-xmark"
   }
 
   setTimeout(() => {
     toastMessage.style.display = "none"
-  })
-
+  }, duration)
 }
+
+// toastHandler("Short URL is generating...")
+// toastHandler("Short URL generated successfully","ok")
+// toastHandler("Some thing is wrong!","error")

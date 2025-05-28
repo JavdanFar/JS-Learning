@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="../Assets/icons/css/all.css" />
     <link rel="stylesheet" href="./style.css" />
     <link rel="stylesheet" href="./modal.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
     <title>Link Shorter</title>
   </head>
   <body data-theme="light">
@@ -87,7 +89,7 @@
     </div>
 
     <!-- ***************************** Version Modal Section ***************************** -->
-    <div id="versionModalContainer" class="version-modal-container">
+    <div id="versionModalContainer" class="modal-container">
       <div class="modal">
         <div class="modal-header">
           <h2>Version 1.0.0</h2>
@@ -100,10 +102,8 @@
 
     <!-- ***************************** Toast Section ***************************** -->
     <div id="toastMessage" class="toast-message">
-      <!-- <div class="loader"></div> -->
-      <i class="fas fa-circle-notch fa-spin"></i>
-      <!-- <i class="fa-solid fa-circle-check"></i> -->
-      <span>Short URL is generating...</span>
+      <i id="toastMessageIcon" class=""></i>
+      <span id="toastText"></span>
     </div>
 
     <script type="module" src="./script.js"></script>
