@@ -21,14 +21,16 @@
       <!-- ***************************** Input URL Card Section ***************************** -->
       <section>
         <div class="card-container">
-          <form action="">
-            <select name="cars" id="cars">
+          <form class="url-form" action="">
+            <select name="methods" id="methods">
               <option value="get">GET</option>
               <option value="post">POST</option>
               <option value="put">PUT</option>
               <option value="delete">DELETE</option>
             </select>
-           <button type="button">Send</button>
+
+            <input type="url" name="urlInput" id="urlInput" placeholder="Enter URL or paste text">
+           <button type="button" id="sendUrlBTN">Send</button>
           </form>
         </div>
       </section>
