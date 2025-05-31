@@ -29,9 +29,22 @@
               <option value="delete">DELETE</option>
             </select>
 
-            <input type="url" name="urlInput" id="urlInput" placeholder="Enter URL or paste text">
-           <button type="button" id="sendUrlBTN">Send</button>
+            <input type="url" name="urlInput" id="urlInput" placeholder="Enter URL or paste text" />
+            <button type="button" id="sendUrlBTN">Send</button>
           </form>
+
+          <!-- ***************************** Tabs Section ***************************** -->
+          <div class="tabs-section">
+            <nav>
+              <button id="paramsBTN">Params</button>
+              <button id="headersBTN">Headers</button>
+              <button id="bodyBTN">Body</button>
+            </nav>
+
+            <div id="paramsTab">params</div>
+            <div id="headersTab">headers</div>
+            <div id="bodyTab">body</div>
+          </div>
         </div>
       </section>
     </main>
