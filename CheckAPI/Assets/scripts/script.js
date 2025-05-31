@@ -2,10 +2,15 @@ import { GBI } from "./lib.js"
 
 // =======***======= DarkMode Section =======***=======
 
-document.body.dataset.theme = localStorage.getItem("theme") || "light";
-
 const themeBTN = GBI("themeBTN");
 const logo = GBI("logo")
+const theme = localStorage.getItem("theme")
+
+document.body.dataset.theme = theme || "light";
+if (theme == "dark") {
+    themeIcon.classList = ("fa fa-solid fa-sun")
+    logo.src = "./Assets/logo/logo-white.png"
+}
 
 themeBTN.addEventListener("click", () => {
     const body = document.body.dataset;
