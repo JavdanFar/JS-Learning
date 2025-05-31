@@ -223,13 +223,13 @@ main section {
     transition: 0.3s;
 
     &:focus {
-        border: 2px solid var(--color-text-primary);
+        border: 1px solid var(--color-text-primary);
     }
 }
 
 .url-form select option {
     color: var(--color-text);
-    background-color: transparent;
+    background-color: var(--color-foreground);
     border: 1px solid var(--color-text-supporting);
     border-radius: 8px 0 0 8px;
     padding: 16px;
@@ -249,7 +249,7 @@ main section {
     flex: 1;
 
     &:focus {
-        border: 2px solid var(--color-text-primary);
+        border: 1px solid var(--color-text-primary);
     }
 }
 
